@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "es2018",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "declaration": true,
+    "sourceMap": true,
+
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+
+    "experimentalDecorators": true
+  },
+
+  "exclude": [
+    "build",
+    "node_modules"
+  ]
+}

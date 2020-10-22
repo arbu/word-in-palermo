@@ -1,0 +1,14 @@
+{
+  "lists": [
+    {
+      "name": "Basic List",
+      "language": "en",
+      "file": "en/basic.txt"
+    },
+    {
+      "name": "Standart Liste",
+      "language": "de",
+      "file": "de/basic.txt"
+    }
+  ]
+}

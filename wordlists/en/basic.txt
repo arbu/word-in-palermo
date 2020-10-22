@@ -1,0 +1,7 @@
+tower
+cup
+camera
+lemontree
+tee
+needle
+bicycle
