@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import fs from 'fs';
-import readline from 'readline';
 import path from 'path';
+import readline from 'readline';
 
 class WordList {
   name: string;

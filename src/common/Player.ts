@@ -15,15 +15,17 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import {Client} from 'colyseus';
-
 import {Schema, type, filter} from '@colyseus/schema';
 
-import {GameState} from './GameState';
+import {StateFilters} from '../StateFilters';
 
 export class Player extends Schema {
+  @filter(StateFilters.hidden)
   @type('string')
   clientId = '';
+
+  @type('boolean')
+  isConnected = true;
 
   @type('string')
   name = '';
@@ -32,34 +34,9 @@ export class Player extends Schema {
   color = '';
 
   @type('string')
-  accesoir = '';
+  accessory = '';
 
-  @filter(function (
-    this: Player,
-    client: Client,
-    value: Player['role'],
-    root: GameState
-  ) {
-    // every player can view their own role
-    if (this.clientId === client.sessionId) {
-      return true;
-    }
-
-    const client_player = root.players.find(
-      (player: Player) => player.clientId === client.sessionId
-    );
-    // mafiosos know each other
-    if (client_player?.role === 'mafioso' && this.role === 'mafioso') {
-      return true;
-    }
-
-    // freemasons know each other
-    if (client_player?.role === 'freemason' && this.role === 'freemason') {
-      return true;
-    }
-
-    return false;
-  })
+  @filter(StateFilters.clientCanViewPlayerRole)
   @type('string')
   role = '';
 }

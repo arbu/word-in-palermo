@@ -31,7 +31,7 @@ export class Rules extends MapSchema<string> {
     return Number(this.get(key));
   }
 
-  getBoolen(key: string): boolean {
+  getBoolean(key: string): boolean {
     return this.get(key) === 'true';
   }
 

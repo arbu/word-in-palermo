@@ -15,33 +15,34 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import http from 'http';
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
+import http from 'http';
 import {Server, LobbyRoom} from 'colyseus';
 import {monitor} from '@colyseus/monitor';
 
 import {GameRoom} from './GameRoom';
 import {initWordLists} from './Words';
 
-await (async function () {
-  const port = Number(process.env.PALERMO_PORT || 2567);
-  const app = express();
+const port = Number(process.env.PALERMO_PORT || 2567);
+const app = express();
 
-  app.use(cors());
-  app.use(express.json());
+app.use(cors());
+app.use(express.json());
 
+const gameServer = new Server({
+  server: http.createServer(app),
+});
+
+gameServer.define('bagheria', LobbyRoom);
+gameServer.define('palermo', GameRoom).enableRealtimeListing();
+
+app.use('/monitor', monitor());
+
+(async function () {
   await initWordLists();
 
-  const gameServer = new Server({
-    server: http.createServer(app),
-  });
-
-  gameServer.define('bagheria', LobbyRoom);
-  gameServer.define('palermo', GameRoom).enableRealtimeListing();
-
-  app.use('/monitor', monitor());
-
   gameServer.listen(port);
+
   console.log(`Listening on ws://localhost:${port}`);
 })();

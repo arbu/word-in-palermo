@@ -15,8 +15,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// eslint-disable-next-line node/no-unpublished-import
 import {Room, Client} from 'colyseus.js';
-import {GameState} from '../src/GameState';
+import {GameState} from '../src/common/GameState';
 
 export function requestJoinOptions(this: Client, i: number) {
   return {requestNumber: i};

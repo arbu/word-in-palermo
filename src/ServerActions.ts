@@ -15,8 +15,21 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-export interface JoinMessage {
-  name: string;
-  color: string;
-  accessoir: string;
+import {Client} from 'colyseus';
+
+import {GameRoom} from './GameRoom';
+import {Words} from './Words';
+
+export class ServerActions {
+  static setSecret(room: GameRoom): void {
+    room.state.secret = new Words(
+      room.state.rules.getStringArray('word_lists')
+    ).random();
+  }
+
+  static sendWordList(room: GameRoom): void {
+    room.clients
+      .find((client: Client) => client.sessionId === room.state.detective)
+      ?.send('word_list');
+  }
 }
